@@ -19,7 +19,7 @@
 
       <el-menu-item index="deadlines">Deadlines</el-menu-item>
 
-      <el-sub-menu :unique-opened="true">
+      <el-sub-menu index="2" :unique-opened="true">
         <template #title>Semesters</template>
         <el-menu-item :index="semester.semesterName" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
         <el-menu-item class="mt-5" index="/semesters/new-semester">New semester
