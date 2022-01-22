@@ -1,4 +1,11 @@
 <template>
+  <el-tabs class="ml-4" v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane label="User" name="first">User</el-tab-pane>
+    <el-tab-pane label="Config" name="second">Config</el-tab-pane>
+    <el-tab-pane label="Role" name="third">Role</el-tab-pane>
+    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+  </el-tabs>
+
   <div class="w-full flex justify-center items-center flex-col pt-4">
     <!-- This should be replaced with a global header or something -->
     <img class="self-center w-auto" alt="McHacks logo" src="./assets/mchacks.png">
@@ -31,10 +38,13 @@ export default {
   },
   data() {
     return {
-
+      activeName: "first"
     }
   },
   methods: {
+    handleClick(tab, event) {
+      console.log(tab, event)
+    },
     async seedDB() {
       axios.get('/test/seed')
           .then((response) => {
