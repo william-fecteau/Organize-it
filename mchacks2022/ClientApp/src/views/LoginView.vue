@@ -41,6 +41,7 @@ export default {
         this.loginError = false;
         console.log(response);
         localStorage.setItem("jwt", response.data.jwt);
+        this.$store.commit('setUserFromDB', response.data.user);
 
       } catch (ex) {
         this.loginError = true;

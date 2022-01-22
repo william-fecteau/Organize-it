@@ -35,8 +35,19 @@
         active-text-color="#ffd04b"
         :router="true"
         :default-active="currentIndex"
+        v-if="!$store.getters.isUserLoggedIn"
     >
       <el-menu-item index="/login">Login</el-menu-item>
+    </el-menu>
+    <el-menu
+        v-else
+        mode="horizontal"
+        class="w-full flex flex-row-reverse"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+      <el-menu-item :disabled="true" class="cursor-default">Welcome {{ $store.state.user.userName }}</el-menu-item>
+      <el-menu-item @click="logout" class="cursor-default">Disconnect</el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -56,6 +67,9 @@ export default {
   computed: {
     currentIndex() {
       return this.$route;
+    },
+    loggedIn() {
+      return this.$store.getters.isUserLoggedIn;
     }
   },
   async mounted() {
@@ -70,6 +84,13 @@ export default {
     }
     catch (ex) {
       console.log("huhu");
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("jwt");
+      this.$store.commit('clearUser');
+      this.$router.push({name: 'HomeView'});
     }
   }
 }

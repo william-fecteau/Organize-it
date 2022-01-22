@@ -1,6 +1,8 @@
 <template>
   <TopNavigation/>
-  <router-view/>
+  <div class="m-8">
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -22,18 +24,28 @@ export default {
     },
   },
   async mounted() {
-      try {
-          var response = await axios.get("/semester", {
-              headers: {
-                  "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-              }
-          })
+    let jwt = localStorage.getItem("jwt");
 
-          this.semesters = response.data
+    if (jwt) {
+      try {
+        var response = await axios.get("/init", {
+        let response = await axios.get("/init", {
+          headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem("jwt")
+          }
+        })
+
+        this.$store.commit('initUser', response.data);
       }
       catch (ex) {
-          console.log("huhu")
+        console.log("failed, get rekt, pain");
+        await this.$router.push({name: 'HomeView'})
       }
+    } else {
+      await this.$router.push({name: 'HomeView'})
+    }
+
+    this.$store.state.ready = true;
   }
 }
 </script>
