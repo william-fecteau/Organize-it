@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Azure.Storage.Blobs.Models;
 
-namespace mchacks2022.BlobsHelper
+namespace mchacks2022.Helpers
 {
     public static class BlobsHelper
     {
