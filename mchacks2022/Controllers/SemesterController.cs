@@ -101,5 +101,38 @@ namespace mchacks2022.Controllers
 
             return Created("", result.Entity);
         }
+
+        [HttpPost]
+        [Route("{semesterName}")]
+        public async Task<IActionResult> CreateSemesterClass([FromRoute] CreateSemesterClassRequest request, [FromRoute] string semesterName, [FromRoute] string className)
+        {
+            var userId = User.GetLoggedInUserId();
+
+            var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.SemesterName == semesterName);
+            if (semester == null) return BadRequest("Invalid semester or class");
+
+            var classs = new Class()
+            {
+                ClassNum = request.ClassNum,
+                FkUserId = userId,
+                Id = Guid.NewGuid(),
+                Name = request.Name
+            };
+
+            var semesterClass = new SemesterClass()
+            {
+                FkClassId = classs.Id,
+                FkSemesterId = semester.Id,
+                Note = request.Note,
+                TeacherEmail = request.TeacherEmail,
+                TeacherName = request.TeacherName
+            };
+
+            await _context.Classes.AddAsync(classs);
+            await _context.SemesterClass.AddAsync(semesterClass);
+            await _context.SaveChangesAsync();
+
+            return Created("", semesterClass);
+        }
     }
 }
