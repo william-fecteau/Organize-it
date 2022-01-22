@@ -1,0 +1,21 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace mchacks2022.Entities
+{
+    public class Exam
+    {
+        public string Id { get; set; }
+        public int Percentage { get; set; }
+        public DateTime EasternStartTime { get; set; }
+        public TimeSpan DurationHour { get; set; }
+
+        // Semester class composite keys
+        public string FkSemesterId { get; set; }
+        public Semester FkSemester { get; set; }
+        public string FkClassId { get; set; }
+        public Class FkClass { get; set; }
+        [ForeignKey("FkSemesterId, FkClassId")]
+        public SemesterClass FkSemesterClass { get; set; }
+    }
+}

@@ -1,6 +1,9 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using mchacks2022.Data;
+using mchacks2022.Entities;
+using mchacks2022.Extensions;
 using mchacks2022.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
