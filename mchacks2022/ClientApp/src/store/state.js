@@ -1,4 +1,5 @@
 export default {
-    statedata: false,
-    anyObject: { test: 'testsda'}
+    user: {},
+    ready: false,
+    classes: {}
 }
