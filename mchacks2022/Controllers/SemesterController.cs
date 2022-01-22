@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using mchacks2022.Data;
@@ -35,15 +36,18 @@ namespace mchacks2022.Controllers
 
         [HttpGet]
         [Route("{semesterName}")]
-        public async Task<IActionResult> GetAllSemesterClassOfUser([FromRoute]string semesterName)
+        public async Task<IActionResult> GetAllSemesterClassOfUser([FromRoute] string semesterName)
         {
-            
+
             var userId = User.GetLoggedInUserId();
 
-            var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.FkUserId == userId && x.SemesterName == semesterName);
+            var semester =
+                await _context.Semesters.FirstOrDefaultAsync(
+                    x => x.FkUserId == userId && x.SemesterName == semesterName);
             if (semester == null) return BadRequest("Invalid semester name");
 
-            var allClasses = await _context.SemesterClass.Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id).ToListAsync();
+            var allClasses = await _context.SemesterClass
+                .Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id).ToListAsync();
 
             return Ok(allClasses);
         }
@@ -54,12 +58,15 @@ namespace mchacks2022.Controllers
         {
             var userId = User.GetLoggedInUserId();
 
-            var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.FkUserId == userId && x.SemesterName == semesterName);
+            var semester =
+                await _context.Semesters.FirstOrDefaultAsync(
+                    x => x.FkUserId == userId && x.SemesterName == semesterName);
             if (semester == null) return BadRequest("Invalid semester name");
 
             var response = new List<CompleteSemesterClass>();
 
-            var allClasses = await _context.SemesterClass.Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id).ToListAsync();
+            var allClasses = await _context.SemesterClass
+                .Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id).ToListAsync();
             foreach (var classs in allClasses)
             {
                 var schedules = await _context.SemesterClassSchedule
@@ -74,6 +81,25 @@ namespace mchacks2022.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> CreateSemester([FromRoute] CreateSemesterRequest request)
+        {
+            var userId = User.GetLoggedInUserId();
+
+            var semester = new Semester()
+            {
+                Id = Guid.NewGuid(),
+                FkUserId = userId,
+                NbWeeks = request.NbWeeks,
+                SemesterName = request.SemesterName,
+                EasternStartDate = request.EasternStartDate
+            };
+            var result = await _context.Semesters.AddAsync(semester);
+
+            return Created("", result.Entity);
         }
     }
 }
