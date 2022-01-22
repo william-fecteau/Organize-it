@@ -13,14 +13,14 @@ namespace mchacks2022.Entities
         public int Percentage { get; set; }
 
         public string FkUserId { get; set; }
-        public IdentityUser FkUser { get; set; }
+        public virtual IdentityUser FkUser { get; set; }
 
         // Semester class composite keys
         public Guid FkSemesterId { get; set; }
-        public Semester FkSemester { get; set; }
+        public virtual Semester FkSemester { get; set; }
         public Guid FkClassId { get; set; }
-        public Class FkClass { get; set; }
+        public virtual Class FkClass { get; set; }
         [ForeignKey("FkSemesterId, FkClassId")]
-        public SemesterClass FkSemesterClass { get; set; }
+        public virtual SemesterClass FkSemesterClass { get; set; }
     }
 }

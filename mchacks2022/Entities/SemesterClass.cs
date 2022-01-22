@@ -18,6 +18,6 @@ namespace mchacks2022.Entities
         public string Note { get; set; }
 
         public string FkUserId { get; set; }
-        public IdentityUser FkUser { get; set; }
+        public virtual IdentityUser FkUser { get; set; }
     }
 }
