@@ -9,13 +9,14 @@
 import axios from "axios"
 
 import TopNavigation from "@/views/navigation/TopNavigation";
+
 export default {
   name: 'App',
   components: {TopNavigation},
   data() {
     return {
-        activeName: "first",
-        semesters: [],
+      activeName: "first",
+      semesters: [],
     }
   },
   methods: {

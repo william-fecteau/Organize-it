@@ -11,15 +11,19 @@ import "element-plus/dist/index.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import axios from "axios";
 
 library.add(faPlusSquare);
+
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("jwt");
 
 const store = createStore({
   state() {
     return state;
   },
   mutations,
-  getters
+  getters,
 });
 
 const app = createApp(App);

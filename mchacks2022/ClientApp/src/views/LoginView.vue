@@ -53,6 +53,11 @@ export default {
         this.$store.commit('setUserFromDB', response.data.user);
         await this.$router.push({name: 'HomeView'});
 
+        localStorage.setItem("jwt", response.data.jwt)
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + response.data.jwt;
+
       } catch (ex) {
         this.loginError = true;
       }
