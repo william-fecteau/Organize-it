@@ -32,6 +32,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> GetAllSemesterOfUser()
         {
             var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
             var userId = user.Id;
 
             //var userId = User.GetLoggedInUserId();
@@ -45,6 +46,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> GetAllSemesterClassOfUser([FromRoute] string semesterName)
         {
             var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
             var userId = user.Id;
             //var userId = User.GetLoggedInUserId();
 
@@ -64,6 +66,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> GetAllSemesterClassSchedulesOfUser([FromRoute] string semesterName)
         {
             var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
             var userId = user.Id;
            //var userId = User.GetLoggedInUserId();
 
@@ -97,6 +100,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> CreateSemester([FromRoute] CreateSemesterRequest request)
         {
             var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
             var userId = user.Id;
             //var userId = User.GetLoggedInUserId();
 
@@ -118,6 +122,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> CreateSemesterClass([FromRoute] CreateSemesterClassRequest request, [FromRoute] string semesterName, [FromRoute] string className)
         {
             var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
             var userId = user.Id;
             //var userId = User.GetLoggedInUserId();
 
