@@ -25,39 +25,29 @@
     </el-sub-menu>
 
     <el-menu-item index="deadlines">Deadlines</el-menu-item>
+    <el-menu-item index="/login">Login</el-menu-item>
+
   </el-menu>
 
-
-  <div class="w-full flex justify-center items-center flex-col pt-4">
-    <!-- This should be replaced with a global header or something -->
-    <MessageDisplay class="my-8" msg="Welcome to McHacks 2022 babyy"/>
-    <Counter/>
-  </div>
-  <div class="w-full flex justify-center items-center flex-col my-8">
-    <div class="flex flex-row w-48 justify-between my-4">
-      <router-link to="/">Home component</router-link>
-      <router-link :to="{name: 'yeeted'}">Yayeet</router-link>
-      <router-link :to="{name: 'login'}">Login</router-link>
-    </div>
-    <router-view/>
-  </div>
-  <SimpleButton :click-function="seedDB" content="Seed the DB"/>
+  <!--  <div class="w-full flex justify-center items-center flex-col pt-4">-->
+  <!--    &lt;!&ndash; This should be replaced with a global header or something &ndash;&gt;-->
+  <!--    <MessageDisplay class="my-8" msg="Welcome to McHacks 2022 babyy"/>-->
+  <!--    <Counter/>-->
+  <!--  </div>-->
+  <!--  <div class="w-full flex justify-center items-center flex-col my-8">-->
+  <!--    <div class="flex flex-row w-48 justify-between my-4">-->
+  <!--      <router-link to="/">Home component</router-link>-->
+  <!--      <router-link :to="{name: 'yeeted'}">Yayeet</router-link>-->
+  <!--      <router-link :to="{name: 'login'}">Login</router-link>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </template>
 
 <script>
-import MessageDisplay from './components/MessageDisplay.vue'
-import Counter from "@/components/Counter";
-import SimpleButton from "@/components/SimpleButton";
-import axios from "axios";
 
 
 export default {
   name: 'App',
-  components: {
-    SimpleButton,
-    Counter,
-    MessageDisplay
-  },
   data() {
     return {
       activeName: "first"
@@ -66,16 +56,6 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
-    },
-    async seedDB() {
-      axios.get('/test/seed')
-          .then((response) => {
-            console.log(response);
-            //localStorage.setItem("", "")
-          })
-          .catch(() => {
-            console.log("pain");
-          });
     },
   }
 }
