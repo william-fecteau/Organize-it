@@ -19,7 +19,7 @@
 
     <el-sub-menu>
       <template #title>Semesters</template>
-      <el-menu-item index="/h2022" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
+      <el-menu-item :index="semester.semesterName" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
       <el-menu-item class="mt-5" index="/semesters/new-semester">New semester
         <font-awesome-icon class="ml-2" icon="plus-square"/>
       </el-menu-item>
@@ -63,13 +63,18 @@ export default {
     },
   },
   async mounted() {
-      var response = await axios.get("/semester", {
-          headers: {
-              "Authorization": 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImdhbWVyIiwiZW1haWwiOiJnYW1lckBnbWFpbC5jb20iLCJuYW1laWQiOiIzMDcwNGZmZC1kMzQ0LTRjMmUtYWVhZi03YjkwMzI3YmRhNjUiLCJuYmYiOjE2NDI4Njc4NTQsImV4cCI6MTY0Mjk1NDI1NCwiaWF0IjoxNjQyODY3ODU0fQ.noFIBx0MXaUy2OJijlxW7I1zoJLrulNUMA6jU_h4SKk'
-          }
-      })
+      try {
+          var response = await axios.get("/semester", {
+              headers: {
+                  "Authorization": 'Bearer ' + localStorage.getItem("jwt")
+              }
+          })
 
-      this.semesters = response.data
+          this.semesters = response.data
+      }
+      catch (ex) {
+          console.log("huhu")
+      }
   }
 }
 </script>
