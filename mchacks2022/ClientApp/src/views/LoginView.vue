@@ -50,7 +50,11 @@ export default {
 
         this.loginError = false;
         console.log(response);
-        localStorage.setItem("jwt", response.data.jwt);
+
+        localStorage.setItem("jwt", response.data.jwt)
+
+        axios.defaults.headers.common["Authorization"] =
+            "Bearer " + response.data.jwt;
 
       } catch (ex) {
         this.loginError = true;

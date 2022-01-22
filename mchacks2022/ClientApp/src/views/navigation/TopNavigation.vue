@@ -57,11 +57,7 @@ export default {
   },
   async mounted() {
     try {
-      var response = await axios.get("/semester", {
-        headers: {
-          "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-        }
-      })
+      var response = await axios.get("/semester")
 
       this.semesters = response.data
     } catch (ex) {

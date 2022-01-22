@@ -7,13 +7,14 @@
 import axios from "axios"
 
 import TopNavigation from "@/views/navigation/TopNavigation";
+
 export default {
   name: 'App',
   components: {TopNavigation},
   data() {
     return {
-        activeName: "first",
-        semesters: [],
+      activeName: "first",
+      semesters: [],
     }
   },
   methods: {
@@ -22,18 +23,13 @@ export default {
     },
   },
   async mounted() {
-      try {
-          var response = await axios.get("/semester", {
-              headers: {
-                  "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-              }
-          })
+    try {
+      var response = await axios.get("/semester")
 
-          this.semesters = response.data
-      }
-      catch (ex) {
-          console.log("huhu")
-      }
+      this.semesters = response.data
+    } catch (ex) {
+      console.log("huhu")
+    }
   }
 }
 </script>

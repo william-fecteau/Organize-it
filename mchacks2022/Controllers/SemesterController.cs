@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace mchacks2022.Controllers
 {
     [ApiController]
-    //[Authorize] TODO: Put back when auth works
+    [Authorize]
     [Route("[controller]")]
     public class SemesterController : ControllerBase
     {
