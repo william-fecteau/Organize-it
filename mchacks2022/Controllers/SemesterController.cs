@@ -37,6 +37,7 @@ namespace mchacks2022.Controllers
         [Route("{semesterName}")]
         public async Task<IActionResult> GetAllSemesterClassOfUser([FromRoute]string semesterName)
         {
+            
             var userId = User.GetLoggedInUserId();
 
             var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.FkUserId == userId && x.SemesterName == semesterName);

@@ -13,6 +13,8 @@ namespace mchacks2022.Data
         public DbSet<Semester> Semesters { get; set; }
         public DbSet<SemesterClass> SemesterClass { get; set; }
         public DbSet<SemesterClassSchedule> SemesterClassSchedule { get; set; }
+        public DbSet<SemesterClassNotes> SemesterClassNotes { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

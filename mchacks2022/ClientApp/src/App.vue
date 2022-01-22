@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import ClassSelectorMenuItem from "./components/ClassSelectorMenuItem";
+import axios from "axios"
 
 
 import TopNavigation from "@/views/navigation/TopNavigation";
@@ -25,13 +27,28 @@ export default {
   components: {TopNavigation},
   data() {
     return {
-      activeName: "first"
+        activeName: "first",
+        semesters: [],
     }
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
     },
+  },
+  async mounted() {
+      try {
+          var response = await axios.get("/semester", {
+              headers: {
+                  "Authorization": 'Bearer ' + localStorage.getItem("jwt")
+              }
+          })
+
+          this.semesters = response.data
+      }
+      catch (ex) {
+          console.log("huhu")
+      }
   }
 }
 </script>

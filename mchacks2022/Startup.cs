@@ -47,6 +47,9 @@ namespace mchacks2022
             var jwtConfig = new JwtConfig() {JwtSecret = (string) Configuration.GetValue(typeof(string), "JwtSecretKey")};
             services.AddSingleton(jwtConfig);
 
+            var blobsConfig = new BlobsConfig() { BlobsCnstr = (string)Configuration.GetValue(typeof(string), "BlobsCnstr") };
+            services.AddSingleton(blobsConfig);
+
             services.AddScoped<TokenProviderService>();
 
             services.AddAuthentication(x =>
