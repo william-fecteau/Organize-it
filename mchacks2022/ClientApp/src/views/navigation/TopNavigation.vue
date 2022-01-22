@@ -19,14 +19,10 @@
 
       <el-menu-item index="deadlines">Deadlines</el-menu-item>
 
-      <el-sub-menu index="2" :unique-opened="true">
-        <template #title>Semesters</template>
-        <el-menu-item :index="semester.semesterName" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
-        <el-menu-item class="mt-5" index="/semesters/new-semester">New semester
-          <font-awesome-icon class="ml-2" icon="plus-square"/>
-        </el-menu-item>
-      </el-sub-menu>
+      <semester-selector-sub-menu/>
+
     </el-menu>
+
     <el-menu
         mode="horizontal"
         class="w-56 flex flex-row-reverse"
@@ -44,10 +40,11 @@
 <script>
 import ClassSelectorMenuItem from "@/components/ClassSelectorMenuItem";
 import axios from "axios";
+import SemesterSelectorSubMenu from "./SemesterSelectorSubMenu";
 
 export default {
   name: "TopNavigation",
-  components: {ClassSelectorMenuItem},
+  components: {SemesterSelectorSubMenu, ClassSelectorMenuItem},
   data() {
     return {
       semesters: [{semesterName: 'AAAAA', id: 2}]
@@ -67,8 +64,7 @@ export default {
       })
 
       this.semesters = response.data
-    }
-    catch (ex) {
+    } catch (ex) {
       console.log("huhu");
     }
   }
