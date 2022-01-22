@@ -2,8 +2,10 @@ import { createApp } from "vue";
 import { createStore } from "vuex";
 import App from "./App.vue";
 import "./styles/tailwind_base.css";
-import router from "./router";
-import state from "./store/state";
+import router from "@/router";
+import state from "@/store/state";
+import mutations from "@/store/mutations";
+import getters from "@/store/getters";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -16,6 +18,8 @@ const store = createStore({
   state() {
     return state;
   },
+  mutations,
+  getters
 });
 
 const app = createApp(App);

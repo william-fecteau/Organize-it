@@ -5,6 +5,11 @@
 <script>
 export default {
   name: "TestView2",
-  props: {classId: String}
+  props: {
+    classId: {
+      type: String,
+      default: 'no class selected'
+    }
+  }
 }
 </script>

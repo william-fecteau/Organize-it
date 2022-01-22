@@ -10,9 +10,15 @@ const routes = [
     component: TestView1,
   },
   {
-    path: "/classes/:classId",
+    path: "/classes/:classId?",
+    name: "classes",
     component: Class,
     props: true,
+  },
+  {
+    path: "/classes/new-class",
+    name: "new-class",
+    component: Class //TODO make component for class create
   },
   {
     path: "/login",

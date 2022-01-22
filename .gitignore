@@ -481,3 +481,5 @@ lint/tmp/
 
 package-lock.json
 track-it/track-it/ClientApp/package-lock.json
+
+mchacks2022/appsettings.json

@@ -1,23 +1,20 @@
 <template>
   <h1>This is component TestView1 ! </h1>
-  <SimpleButton :click-function="seedDB" content="Seed the DB"/>
+  <el-button type="primary" @click="seedDB">Seed da DB</el-button>
 
 </template>
 
 <script>
-import SimpleButton from "@/components/SimpleButton";
 import axios from "axios";
 
 
 export default {
   name: "TestView1",
-  components: {SimpleButton},
   methods: {
     async seedDB() {
       axios.get('/test/seed')
           .then((response) => {
             console.log(response);
-            //localStorage.setItem("", "")
           })
           .catch(() => {
             console.log("pain");
