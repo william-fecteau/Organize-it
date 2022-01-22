@@ -17,19 +17,9 @@
 
       <class-selector-menu-item/>
 
-      <el-sub-menu >
-        <template #title>Classes</template>
-        <el-menu-item :route="{name: 'classes'}">GLO-1111</el-menu-item>
-        <el-menu-item :route="{name: 'classes'}">MAT-1919</el-menu-item>
-        <el-menu-item :route="{name: 'classes', params: { classId: 'huhuhuhu' }}">IFT-3001</el-menu-item>
-        <el-menu-item class="mt-5" :route="{name: 'new-class'}">New class
-          <font-awesome-icon class="ml-2" icon="plus-square"/>
-        </el-menu-item>
-      </el-sub-menu>
-
       <el-menu-item index="deadlines">Deadlines</el-menu-item>
 
-      <el-sub-menu>
+      <el-sub-menu :unique-opened="true">
         <template #title>Semesters</template>
         <el-menu-item :index="semester.semesterName" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
         <el-menu-item class="mt-5" index="/semesters/new-semester">New semester
@@ -39,7 +29,7 @@
     </el-menu>
     <el-menu
         mode="horizontal"
-        class="w-full flex flex-row-reverse"
+        class="w-56 flex flex-row-reverse"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -52,7 +42,7 @@
 </template>
 
 <script>
-import ClassSelectorMenuItem from "./components/ClassSelectorMenuItem";
+import ClassSelectorMenuItem from "@/components/ClassSelectorMenuItem";
 import axios from "axios";
 
 export default {
@@ -60,7 +50,7 @@ export default {
   components: {ClassSelectorMenuItem},
   data() {
     return {
-      semesters: []
+      semesters: [{semesterName: 'AAAAA', id: 2}]
     }
   },
   computed: {
@@ -79,7 +69,7 @@ export default {
       this.semesters = response.data
     }
     catch (ex) {
-      console.log("huhu")
+      console.log("huhu");
     }
   }
 }

@@ -1,19 +1,16 @@
 <template>
-  <el-sub-menu>
+  <el-sub-menu :unique-opened="true">
     <template #title>Classes</template>
-    <el-menu-item index="/classes/glo-1111">GLO-1111</el-menu-item>
-    <el-menu-item index="/classes/mat-1919">MAT-1919</el-menu-item>
-    <el-menu-item index="/classes/ift-3001">IFT-3001</el-menu-item>
-    <el-menu-item class="mt-5" index="/classes/new-class">New class
+    <el-menu-item :route="{name: 'classes'}">GLO-1111</el-menu-item>
+    <el-menu-item :route="{name: 'classes'}">MAT-1919</el-menu-item>
+    <el-menu-item :route="{name: 'classes', params: { classId: 'huhuhuhu' }}">IFT-3001</el-menu-item>
+    <el-menu-item class="mt-5" :route="{name: 'new-class'}">New class
       <font-awesome-icon class="ml-2" icon="plus-square"/>
     </el-menu-item>
   </el-sub-menu>
 </template>
 
 <script>
-
-
-import axios from "axios";
 
 export default {
   name: 'ClassSelectorMenu',
@@ -23,14 +20,7 @@ export default {
     }
   },
   async mounted() {
-
-    const res = await axios.get("/semester/H2022",
-        {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
-          }
-        }
-    );
+    const res = 'TODO';
 
     console.log(res);
 
