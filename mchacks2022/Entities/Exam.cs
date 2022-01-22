@@ -5,7 +5,8 @@ namespace mchacks2022.Entities
 {
     public class Exam
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
         public int Percentage { get; set; }
         public DateTime EasternStartTime { get; set; }
         public TimeSpan DurationHour { get; set; }

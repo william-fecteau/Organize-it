@@ -132,7 +132,6 @@ namespace mchacks2022.Controllers
             };
             _dbContext.SemesterClassSchedule.Add(mat1900Monday);
 
-
             var mat1900Thursday = new SemesterClassSchedule()
             {
                 Id = Guid.NewGuid(),
@@ -144,10 +143,81 @@ namespace mchacks2022.Controllers
             };
             _dbContext.SemesterClassSchedule.Add(mat1900Thursday);
 
-            // TODO: Those datasets are not seeded yet
             // Exam
+            var mat1900IntraExam = new Exam()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Intra exam",
+                FkSemesterId = h2022.Id,
+                FkClassId = mat1900.Id,
+                Percentage = 40,
+                EasternStartTime = DateTime.Now.AddDays(6 * 7),
+                DurationHour = TimeSpan.FromHours(3)
+            };
+            _dbContext.Exams.Add(mat1900IntraExam);
+
+            var mat1900FinalExam = new Exam()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Final exam",
+                FkSemesterId = h2022.Id,
+                FkClassId = mat1900.Id,
+                Percentage = 40,
+                EasternStartTime = DateTime.Now.AddDays(6 * 14),
+                DurationHour = TimeSpan.FromHours(3)
+            };
+            _dbContext.Exams.Add(mat1900FinalExam);
+
+            var mat1919IntraExam = new Exam()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Intra exam",
+                FkSemesterId = h2022.Id,
+                FkClassId = mat1919.Id,
+                Percentage = 40,
+                EasternStartTime = DateTime.Now.AddDays(6 * 7),
+                DurationHour = TimeSpan.FromHours(2)
+            };
+            _dbContext.Exams.Add(mat1919IntraExam);
+
+            var mat1919FinalExam = new Exam()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Final exam",
+                FkSemesterId = h2022.Id,
+                FkClassId = mat1919.Id,
+                Percentage = 40,
+                EasternStartTime = DateTime.Now.AddDays(6 * 15),
+                DurationHour = TimeSpan.FromHours(1)
+            };
+            _dbContext.Exams.Add(mat1919FinalExam);
 
             // Deadlines
+            var mat1919Tp = new Deadline()
+            {
+                Id = Guid.NewGuid(),
+                FkClassId = mat1919.Id,
+                FkSemesterId = h2022.Id,
+                Description = "Prove that the Earth is flat",
+                EasterDueDate = DateTime.Now.AddDays(15),
+                FkUserId = user.Id,
+                Name = "Big proof",
+                Percentage = 20,
+            };
+            _dbContext.Deadlines.Add(mat1919Tp);
+
+            var mat1900Tp = new Deadline()
+            {
+                Id = Guid.NewGuid(),
+                FkClassId = mat1900.Id,
+                FkSemesterId = h2022.Id,
+                Description = "Derivate a new meaning to your life using partial derivatives",
+                EasterDueDate = DateTime.Now.AddDays(15),
+                FkUserId = user.Id,
+                Name = "Partial derivatives",
+                Percentage = 20,
+            };
+            _dbContext.Deadlines.Add(mat1900Tp);
 
             await _dbContext.SaveChangesAsync();
 
