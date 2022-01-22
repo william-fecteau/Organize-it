@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+
 
 namespace mchacks2022.Controllers
 {
@@ -44,7 +43,8 @@ namespace mchacks2022.Controllers
             // Semesters
             var h2022 = new Semester()
             {
-                Id = "H2022",
+                Id = Guid.NewGuid(),
+                SemesterName = "H2022",
                 NbWeeks = 15,
                 EasternStartDate = DateTime.Now,
                 FkUserId = user.Id
@@ -53,7 +53,8 @@ namespace mchacks2022.Controllers
 
             var a2022 = new Semester()
             {
-                Id = "A2022",
+                Id = Guid.NewGuid(),
+                SemesterName = "A2022",
                 NbWeeks = 15,
                 EasternStartDate = DateTime.Now.AddDays(16*7),
                 FkUserId = user.Id
@@ -63,7 +64,8 @@ namespace mchacks2022.Controllers
             // Classes
             var mat1919 = new Class()
             {
-                Id = "MAT-1919",
+                Id = Guid.NewGuid(),
+                ClassNum = "MAT-1919",
                 Name = "Computer science math",
                 FkUserId = user.Id
             };
@@ -71,7 +73,8 @@ namespace mchacks2022.Controllers
 
             var mat1900 = new Class()
             {
-                Id = "MAT-1900",
+                Id = Guid.NewGuid(),
+                ClassNum = "MAT-1900",
                 Name = "Engineer math",
                 FkUserId = user.Id
             };
@@ -229,7 +232,7 @@ namespace mchacks2022.Controllers
         [Route("authTest")]
         public IActionResult AuthTest()
         {
-            var username = User.GetLoggedInUserName();
+            var username = User.GetLoggedInUserId();
             return Ok($"Hi {username}!");
         }
     }

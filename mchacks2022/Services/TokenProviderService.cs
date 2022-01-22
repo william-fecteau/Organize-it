@@ -35,6 +35,7 @@ namespace mchacks2022.Services
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor

@@ -21,9 +21,9 @@ namespace mchacks2022.Entities
 
 
         // Semester class composite keys
-        public string FkSemesterId { get; set; }
+        public Guid FkSemesterId { get; set; }
         public Semester FkSemester { get; set; }
-        public string FkClassId { get; set; }
+        public Guid FkClassId { get; set; }
         public Class FkClass { get; set; }
         [ForeignKey("FkSemesterId, FkClassId")]
         public SemesterClass FkSemesterClass { get; set; }

@@ -8,12 +8,12 @@ namespace mchacks2022.Extensions
 
     public static class ClaimsPrincipalExtensions
     {
-        public static string GetLoggedInUserName(this ClaimsPrincipal principal)
+        public static string GetLoggedInUserId(this ClaimsPrincipal principal)
         {
             if (principal == null)
                 throw new ArgumentNullException(nameof(principal));
 
-            return principal.FindFirstValue(ClaimTypes.Name);
+            return principal.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public static string GetLoggedInUserEmail(this ClaimsPrincipal principal)

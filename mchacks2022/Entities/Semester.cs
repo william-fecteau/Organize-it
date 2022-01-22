@@ -8,7 +8,8 @@ namespace mchacks2022.Entities
     public class Semester
     {
         [Key]
-        public string Id { get; set; } // Example: H2022
+        public Guid Id { get; set; } 
+        public string SemesterName { get; set; } // Example: H2022
         public DateTime EasternStartDate { get; set; }
         public int NbWeeks { get; set; }
 
