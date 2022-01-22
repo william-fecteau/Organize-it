@@ -7,28 +7,35 @@ using mchacks2022.DTOs;
 using mchacks2022.Entities;
 using mchacks2022.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace mchacks2022.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize] TODO: Put back when auth works
     [Route("[controller]")]
     public class SemesterController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public SemesterController(AppDbContext context)
+        public SemesterController(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<IActionResult> GetAllSemesterOfUser()
         {
-            var userId = User.GetLoggedInUserId();
+            var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
+            var userId = user.Id;
+
+            //var userId = User.GetLoggedInUserId();
             var result = await _context.Semesters.Where(x => x.FkUserId == userId).ToListAsync();
 
             return Ok(result);
@@ -38,8 +45,10 @@ namespace mchacks2022.Controllers
         [Route("{semesterName}")]
         public async Task<IActionResult> GetAllSemesterClassOfUser([FromRoute] string semesterName)
         {
-
-            var userId = User.GetLoggedInUserId();
+            var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
+            var userId = user.Id;
+            //var userId = User.GetLoggedInUserId();
 
             var semester =
                 await _context.Semesters.FirstOrDefaultAsync(
@@ -56,7 +65,10 @@ namespace mchacks2022.Controllers
         [Route("{semesterName}/schedules")]
         public async Task<IActionResult> GetAllSemesterClassSchedulesOfUser([FromRoute] string semesterName)
         {
-            var userId = User.GetLoggedInUserId();
+            var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
+            var userId = user.Id;
+           //var userId = User.GetLoggedInUserId();
 
             var semester =
                 await _context.Semesters.FirstOrDefaultAsync(
@@ -87,7 +99,10 @@ namespace mchacks2022.Controllers
         [Route("")]
         public async Task<IActionResult> CreateSemester([FromRoute] CreateSemesterRequest request)
         {
-            var userId = User.GetLoggedInUserId();
+            var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
+            var userId = user.Id;
+            //var userId = User.GetLoggedInUserId();
 
             var semester = new Semester()
             {
@@ -106,7 +121,10 @@ namespace mchacks2022.Controllers
         [Route("{semesterName}")]
         public async Task<IActionResult> CreateSemesterClass([FromRoute] CreateSemesterClassRequest request, [FromRoute] string semesterName, [FromRoute] string className)
         {
-            var userId = User.GetLoggedInUserId();
+            var user = await _userManager.FindByNameAsync("gamer");
+            if (user == null) return BadRequest("Db not seeded lol");
+            var userId = user.Id;
+            //var userId = User.GetLoggedInUserId();
 
             var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.SemesterName == semesterName);
             if (semester == null) return BadRequest("Invalid semester or class");
