@@ -28,7 +28,6 @@ export default {
 
     if (jwt) {
       try {
-        var response = await axios.get("/init", {
         let response = await axios.get("/init", {
           headers: {
             "Authorization": 'Bearer ' + localStorage.getItem("jwt")

@@ -27,7 +27,8 @@ namespace mchacks2022.Controllers
         }
 
         [HttpGet]
-        private async Task<IActionResult> Gamer()
+        [Route("")]
+        public async Task<IActionResult> Gamer()
         {
             var userId = User.GetLoggedInUserId();
             var user = await _userManager.FindByIdAsync(userId);
