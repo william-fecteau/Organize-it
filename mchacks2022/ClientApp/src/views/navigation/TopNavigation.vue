@@ -35,7 +35,7 @@
         active-text-color="#ffd04b"
         :router="true"
         :default-active="currentIndex"
-        v-if="!$store.getters.isUserLoggedIn"
+        v-if="loggedIn"
     >
       <el-menu-item index="/login">Login</el-menu-item>
     </el-menu>

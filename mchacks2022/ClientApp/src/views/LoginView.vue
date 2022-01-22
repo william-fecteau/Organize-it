@@ -39,9 +39,9 @@ export default {
         });
 
         this.loginError = false;
-        console.log(response);
         localStorage.setItem("jwt", response.data.jwt);
         this.$store.commit('setUserFromDB', response.data.user);
+        await this.$router.push({name: 'HomeView'});
 
       } catch (ex) {
         this.loginError = true;
