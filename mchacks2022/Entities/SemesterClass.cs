@@ -8,10 +8,10 @@ namespace mchacks2022.Entities
     public class SemesterClass
     {
         [Key, Column(Order = 0)]
-        public string FkSemesterId { get; set; }
+        public Guid FkSemesterId { get; set; }
 
         [Key, Column(Order = 1)]
-        public string FkClassId { get; set; }
+        public Guid FkClassId { get; set; }
 
         public string TeacherName { get; set; }
         public string TeacherEmail { get; set; }

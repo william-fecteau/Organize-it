@@ -50,6 +50,7 @@ export default {
       axios.get('/test/seed')
           .then((response) => {
             console.log(response);
+            //localStorage.setItem("", "")
           })
           .catch(() => {
             console.log("pain");

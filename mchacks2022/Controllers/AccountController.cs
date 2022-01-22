@@ -26,7 +26,7 @@ namespace mchacks2022.Controllers
         public async Task<IActionResult> Login([FromBody]LoginRequest request)
         {
             var result = await _signInManager.PasswordSignInAsync(request.Username, request.Password, false, false);
-            if (!result.Succeeded) return BadRequest();
+            if (!result.Succeeded) return BadRequest("Invalid username/password combination");
 
             var token = await _tokenProviderService.GetTokenAsync(request.Username);
             if (string.IsNullOrEmpty(token)) return Problem();
