@@ -12,18 +12,38 @@
     </div>
     <router-view/>
   </div>
+  <SimpleButton :click-function="seedDB" content="Seed the DB"/>
 </template>
 
 <script>
 import MessageDisplay from './components/MessageDisplay.vue'
 import Counter from "@/components/Counter";
+import SimpleButton from "@/components/SimpleButton";
+import axios from "axios";
 
 
 export default {
   name: 'App',
   components: {
+    SimpleButton,
     Counter,
     MessageDisplay
+  },
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    async seedDB() {
+      axios.get('/test/seed')
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(() => {
+            console.log("pain");
+          });
+    }
   }
 }
 </script>

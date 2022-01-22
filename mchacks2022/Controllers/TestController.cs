@@ -42,7 +42,7 @@ namespace mchacks2022.Controllers
             var user = await _userManager.FindByNameAsync("gamer");
 
 
-            return Ok("Database seeded");
+            return Ok(user);
         }
 
         [HttpGet]

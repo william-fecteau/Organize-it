@@ -1,5 +1,5 @@
 <template>
-  <div class="w-6 h-6 rounded text-center" :class="backgroundColor" @click="clickFunction">
+  <div class="p-4 rounded text-center" :class="backgroundColor" @click="clickFunction">
     {{ content }}
   </div>
 </template>
