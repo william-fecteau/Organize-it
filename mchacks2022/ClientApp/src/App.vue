@@ -5,8 +5,8 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       :router="true"
-
   >
+
     <el-menu-item index="/">
       <img class="self-center w-auto" style="height: 50px" alt="McHacks logo" src="./assets/mchacks.png">
     </el-menu-item>
@@ -16,6 +16,15 @@
     <class-selector-menu-item/>
 
     <el-menu-item index="deadlines">Deadlines</el-menu-item>
+
+    <el-sub-menu>
+      <template #title>Semesters</template>
+      <el-menu-item index="/h2022" v-for="semester in semesters" :key="semester.id">{{ semester.semesterName }}</el-menu-item>
+      <el-menu-item class="mt-5" index="/semesters/new-semester">New semester
+        <font-awesome-icon class="ml-2" icon="plus-square"/>
+      </el-menu-item>
+    </el-sub-menu>
+
     <el-menu-item index="/login">Login</el-menu-item>
 
   </el-menu>
@@ -37,19 +46,30 @@
 
 <script>
 import ClassSelectorMenuItem from "./components/ClassSelectorMenuItem";
+import axios from "axios"
 
 export default {
   name: 'App',
   components: {ClassSelectorMenuItem},
   data() {
     return {
-      activeName: "first"
+        activeName: "first",
+        semesters: [],
     }
   },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
     },
+  },
+  async mounted() {
+      var response = await axios.get("/semester", {
+          headers: {
+              "Authorization": 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImdhbWVyIiwiZW1haWwiOiJnYW1lckBnbWFpbC5jb20iLCJuYW1laWQiOiIzMDcwNGZmZC1kMzQ0LTRjMmUtYWVhZi03YjkwMzI3YmRhNjUiLCJuYmYiOjE2NDI4Njc4NTQsImV4cCI6MTY0Mjk1NDI1NCwiaWF0IjoxNjQyODY3ODU0fQ.noFIBx0MXaUy2OJijlxW7I1zoJLrulNUMA6jU_h4SKk'
+          }
+      })
+
+      this.semesters = response.data
   }
 }
 </script>
