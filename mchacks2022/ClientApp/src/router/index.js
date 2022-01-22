@@ -1,13 +1,19 @@
 import { createWebHistory, createRouter } from "vue-router";
-import TestView1 from "@/views/TestView1";
+import TestView1 from "@/views/HomeView";
 import Class from "@/views/classes/Class"
 import LoginView from "@/views/LoginView";
+import SeederComponent from "@/components/SeederComponent";
 
 const routes = [
   {
     path: "/",
     name: "HomeView",
     component: TestView1,
+  },
+  {
+    path: "/seedDatabase",
+    name: 'seed',
+    component: SeederComponent
   },
   {
     path: "/classes/:classId?",

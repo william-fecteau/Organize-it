@@ -1,5 +1,6 @@
 export default {
     user: {},
     ready: false,
-    classes: {}
+    classes: {},
+    semesters: []
 }

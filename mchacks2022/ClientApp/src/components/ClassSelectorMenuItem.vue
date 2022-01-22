@@ -23,7 +23,6 @@ export default {
     const res = 'TODO';
 
     console.log(res);
-
   },
   methods: {
     handleClick(tab, event) {

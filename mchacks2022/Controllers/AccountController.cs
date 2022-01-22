@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using mchacks2022.DTOs;
 using mchacks2022.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,10 @@ namespace mchacks2022.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
 
 
-        public AccountController(SignInManager<IdentityUser> signInManager, TokenProviderService tokenProviderService)
+        public AccountController(SignInManager<IdentityUser> signInManager, TokenProviderService tokenProviderService, UserManager<IdentityUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _tokenProviderService = tokenProviderService;
         }
 
@@ -29,11 +31,13 @@ namespace mchacks2022.Controllers
             if (!result.Succeeded) return BadRequest("Invalid username/password combination");
 
             var token = await _tokenProviderService.GetTokenAsync(request.Username);
+            var user = await _userManager.FindByNameAsync(request.Username);
             if (string.IsNullOrEmpty(token)) return Problem();
 
             return Ok(new LoginResponse()
             {
-                Jwt = token
+                Jwt = token,
+                user = user
             });
         }
     }
