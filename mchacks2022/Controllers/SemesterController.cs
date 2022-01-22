@@ -5,12 +5,14 @@ using mchacks2022.Data;
 using mchacks2022.DTOs;
 using mchacks2022.Entities;
 using mchacks2022.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace mchacks2022.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class SemesterController : ControllerBase
     {
