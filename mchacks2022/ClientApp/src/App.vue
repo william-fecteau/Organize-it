@@ -16,6 +16,7 @@
     <div class="flex flex-row w-48 justify-between my-4">
       <router-link to="/">Home component</router-link>
       <router-link :to="{name: 'yeeted'}">Yayeet</router-link>
+      <router-link :to="{name: 'login'}">Login</router-link>
     </div>
     <router-view/>
   </div>
