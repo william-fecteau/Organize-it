@@ -1,5 +1,5 @@
 <template>
-  <el-sub-menu :unique-opened="true">
+  <el-sub-menu index="1" :unique-opened="true">
     <template #title>Classes</template>
     <el-menu-item :route="{name: 'classes'}">GLO-1111</el-menu-item>
     <el-menu-item :route="{name: 'classes'}">MAT-1919</el-menu-item>
