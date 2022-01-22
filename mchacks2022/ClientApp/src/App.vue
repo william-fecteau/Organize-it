@@ -13,16 +13,7 @@
 
     <el-menu-item index="/agenda">Agenda
     </el-menu-item>
-
-    <el-sub-menu>
-      <template #title>Classes</template>
-      <el-menu-item index="/classes/glo-1111">GLO-1111</el-menu-item>
-      <el-menu-item index="/classes/mat-1919">MAT-1919</el-menu-item>
-      <el-menu-item index="/classes/ift-3001">IFT-3001</el-menu-item>
-      <el-menu-item class="mt-5" index="/classes/new-class">New class
-        <font-awesome-icon class="ml-2" icon="plus-square"/>
-      </el-menu-item>
-    </el-sub-menu>
+    <class-selector-menu-item/>
 
     <el-menu-item index="deadlines">Deadlines</el-menu-item>
     <el-menu-item index="/login">Login</el-menu-item>
@@ -45,10 +36,11 @@
 </template>
 
 <script>
-
+import ClassSelectorMenuItem from "./components/ClassSelectorMenuItem";
 
 export default {
   name: 'App',
+  components: {ClassSelectorMenuItem},
   data() {
     return {
       activeName: "first"

@@ -31,18 +31,21 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      axios.post('/account/login', {
-        username: this.username,
-        password: this.password
-      })
-          .then((response) => {
-            this.loginError = false;
-            console.log(response);
-          })
-          .catch(() => {
-            this.loginError = true;
-          });
+    async onSubmit() {
+      try {
+        const response = await axios.post('/account/login', {
+          username: this.username,
+          password: this.password
+        });
+
+        this.loginError = false;
+        console.log(response);
+        localStorage.setItem("jwt", response.data.jwt);
+
+      } catch (ex) {
+        this.loginError = true;
+      }
+
     }
   }
 }

@@ -3,8 +3,9 @@
 </template>
 
 <script>
+
 export default {
   name: "TestView2",
-  props: {classId: String}
+  props: {classId: String},
 }
 </script>
