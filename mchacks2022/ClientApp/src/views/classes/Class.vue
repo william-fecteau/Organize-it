@@ -1,5 +1,7 @@
 <template>
-  <h1>TestView2 in da house B) {{ selectedClass }}</h1>
+  <page-template title="Login">
+    <h1>TestView2 in da house B) {{ selectedClass }}</h1>
+  </page-template>
 </template>
 
 <script>
