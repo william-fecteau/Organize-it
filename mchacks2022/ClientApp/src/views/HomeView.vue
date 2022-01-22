@@ -4,7 +4,8 @@
     <p class="text-xl my-4">All of your classes and deadlines in one convinient place!</p>
     <el-button v-if="showDashboardButton" type="primary" @click="$router.push({name: 'Dashboard'})">
       Go to your dashboard <font-awesome-icon class="ml-2" icon="plus-square"/></el-button>
-    <el-button v-else type="primary" @click="seedDB">Seed da DB</el-button>
+    <el-button v-else type="primary" @click="$router.push({name: 'login'})">Log in to start using the app</el-button>
+    <img src="../assets/logo.png"/>
   </div>
 
 </template>

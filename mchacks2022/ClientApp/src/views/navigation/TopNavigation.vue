@@ -10,7 +10,7 @@
         :default-active="currentIndex"
     >
       <el-menu-item index="/" class="h-full">
-        <img class="self-center w-auto h-14" alt="McHacks logo" src="@/assets/mchacks.png">
+        <img class="self-center w-auto h-14" alt="McHacks logo" src="@/assets/logo.png">
       </el-menu-item>
 
       <el-menu-item index="/agenda">Agenda</el-menu-item>
@@ -31,7 +31,7 @@
         active-text-color="#ffd04b"
         :router="true"
         :default-active="currentIndex"
-        v-if="loggedIn"
+        v-if="!loggedIn"
     >
       <el-menu-item index="/login">Login</el-menu-item>
     </el-menu>
@@ -50,7 +50,6 @@
 
 <script>
 import ClassSelectorMenuItem from "@/components/ClassSelectorMenuItem";
-import axios from "axios";
 import SemesterSelectorSubMenu from "./SemesterSelectorSubMenu";
 
 export default {
@@ -67,19 +66,6 @@ export default {
     },
     loggedIn() {
       return this.$store.getters.isUserLoggedIn;
-    }
-  },
-  async mounted() {
-    try {
-      var response = await axios.get("/semester", {
-        headers: {
-          "Authorization": 'Bearer ' + localStorage.getItem("jwt")
-        }
-      })
-
-      this.semesters = response.data
-    } catch (ex) {
-      console.log("huhu");
     }
   },
   methods: {
