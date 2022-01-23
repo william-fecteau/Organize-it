@@ -10,11 +10,13 @@ using mchacks2022.Entities;
 using mchacks2022.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using mchacks2022.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace mchacks2022.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class NoteController : ControllerBase
     {
@@ -27,48 +29,45 @@ namespace mchacks2022.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpPost]
-        [Route("{semesterName}/{className}/{classNo:int}")]
-        public async Task<IActionResult> UploadNote([FromBody]UploadNoteRequest request, [FromRoute] string semesterName, [FromRoute] string className, [FromRoute] int classNo)
+        [HttpGet]
+        [Route("{semesterName}")]
+        public async Task<IActionResult> GetAllNotesFromUser([FromRoute] string semesterName, [FromQuery] string classFilter)
         {
             var userId = User.GetLoggedInUserId();
 
-            var semester = await _dbContext.Semesters.FirstOrDefaultAsync(x => x.SemesterName == semesterName);
-            var classs = await _dbContext.Classes.FirstOrDefaultAsync(x => x.FkUserId == userId && x.ClassNum == className);
-            if (semester == null || classs == null) return BadRequest("Invalid semester or class");
+            var result = _dbContext.SemesterClassNotes.Where(x => x.FkSemester.SemesterName == semesterName && x.FkSemester.FkUserId == userId);
+            if (!string.IsNullOrEmpty(classFilter)) result = result.Where(x => x.FkClass.ClassNum == classFilter);
 
-            var semesterClassNotes = await _dbContext.SemesterClassNotes.FirstOrDefaultAsync(x => x.FkClassId == classs.Id && x.FkSemesterId == semester.Id && x.ClassNo == classNo);
-            
-            // If semesterClassNotes is not already there, create it
-            if (semesterClassNotes == null)
+            var response = await result.ToListAsync();
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("{semesterName}/{className}")]
+        public async Task<IActionResult> Create([FromBody] CreateSemesterClassNoteRequest request, [FromRoute] string semesterName, [FromRoute] string className)
+        {
+            var userId = User.GetLoggedInUserId();
+
+            var semester = await _dbContext.Semesters.FirstOrDefaultAsync(x => x.FkUserId == userId && x.SemesterName == semesterName);
+            if (semester == null) return BadRequest("Invalid semester name");
+
+            var classs = await _dbContext.Classes.FirstOrDefaultAsync(x => x.ClassNum == className);
+            if (classs == null) return BadRequest("Invalid class name");
+
+            var semesterClassNote = new SemesterClassNotes()
             {
-                semesterClassNotes = new SemesterClassNotes()
-                {
-                    Id = Guid.NewGuid(),
-                    FkClassId = classs.Id,
-                    FkSemesterId = semester.Id,
-                    ClassNo = classNo,
-                };
-                _dbContext.SemesterClassNotes.Add(semesterClassNotes);
-            }
-
-            var serviceClient = new BlobServiceClient(_blobsConfig.BlobsCnstr);
-            var containerClient = serviceClient.GetBlobContainerClient(userId);
-
-            await containerClient.CreateIfNotExistsAsync();
-
-            var noteId = Guid.NewGuid();
-            var note = new Note()
-            {
-                Id = noteId,
-                Filename = request.Filename,
-                Extension = request.Extension,
-                FkSemesterClassNoteId = semesterClassNotes.Id
+                ClassNo = request.ClassNo,
+                ClassSubject = request.ClassSubject,
+                FkClassId = classs.Id,
+                FkSemesterId = semester.Id,
+                Id = Guid.NewGuid()
             };
+            await _dbContext.SemesterClassNotes.AddAsync(semesterClassNote);
+            await _dbContext.SaveChangesAsync();
 
-            BlobsHelper.UploadBlob($"{noteId}", request.FileContent, containerClient, true);
 
-            return Ok(note);
+            return Created("", semesterClassNote);
         }
     }
 }

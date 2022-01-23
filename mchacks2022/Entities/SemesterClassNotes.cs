@@ -9,6 +9,7 @@ namespace mchacks2022.Entities
         [Key]
         public Guid Id { get; set; }
         public int ClassNo { get; set; } //1,2,3,4,5,6,7,8,9,10
+        public string ClassSubject { get; set; }
 
         // Semester class composite keys
         public Guid FkSemesterId { get; set; }
