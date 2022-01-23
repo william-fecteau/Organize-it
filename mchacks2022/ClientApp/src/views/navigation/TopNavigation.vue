@@ -66,7 +66,7 @@ export default {
   components: { ClassSelectorMenuItem},
   computed: {
     currentIndex() {
-      return this.$route;
+      return this.$route.name;
     },
     loggedIn() {
       return this.$store.getters.isUserLoggedIn;
@@ -83,9 +83,6 @@ export default {
       localStorage.removeItem("jwt");
       this.$store.commit('clearUser');
       this.$router.push({name: 'HomeView'});
-    },
-    updateSemester(value) {
-      this.$store.commit('setSelectedSemester', value);
     }
   }
 }

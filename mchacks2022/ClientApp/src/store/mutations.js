@@ -23,7 +23,6 @@ export default {
         state.user = {};
     },
     initUser(state, requestData) {
-        console.log('made it here');
         this.commit('setUserFromDB', requestData.user);
         requestData.semesters.forEach(semester => {
             this.commit('addSemester', semester);
