@@ -10,7 +10,7 @@
         :default-active="currentIndex"
     >
       <el-menu-item index="/">
-        <img class="self-center w-auto h-14" alt="Beatuful logo" src="@/assets/logo2.png">
+        <img class="self-center w-auto h-14" alt="Beatuful logo" src="@/assets/logo.gif">
       </el-menu-item>
 
       <class-selector-menu-item v-if="loggedIn"/>
@@ -98,7 +98,6 @@ export default {
   watch: {
     selectedSemester: function (newSemester, oldSemester) {
       if (newSemester !== oldSemester) {
-        console.log('watcher watches');
         this.updateSemesterClasses();
       }
     }
