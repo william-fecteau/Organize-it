@@ -222,6 +222,29 @@ namespace mchacks2022.Controllers
             };
             _dbContext.Deadlines.Add(mat1900Tp);
 
+
+            // Notes
+            var class1Mat1919 = new SemesterClassNotes()
+            {
+                ClassNo = 1,
+                FkClassId = mat1919.Id,
+                FkSemesterId = h2022.Id,
+                ClassSubject = "Class plan",
+                Id = Guid.NewGuid()
+            };
+            _dbContext.SemesterClassNotes.Add(class1Mat1919);
+
+            var class1Mat1900 = new SemesterClassNotes()
+            {
+                ClassNo = 1,
+                FkClassId = mat1900.Id,
+                FkSemesterId = h2022.Id,
+                ClassSubject = "Class plan",
+                Id = Guid.NewGuid()
+            };
+            _dbContext.SemesterClassNotes.Add(class1Mat1900);
+
+
             await _dbContext.SaveChangesAsync();
 
             return Ok(user);

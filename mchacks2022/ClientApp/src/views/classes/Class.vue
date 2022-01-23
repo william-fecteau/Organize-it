@@ -51,7 +51,7 @@ export default {
 
         console.log(byteFile);
 
-        const res = await axios.post("/file/upload-test",
+        const res = await axios.post("/file/H2022/MAT-1919/1",
             {fileContent: byteFile, filename: "test", extension: "pdf"});
         console.log(res);
 

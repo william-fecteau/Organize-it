@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using mchacks2022.Data;
@@ -55,7 +56,8 @@ namespace mchacks2022.Controllers
                 FkSemesterClassNoteId = semesterClassNotes.Id
             };
 
-            //BlobsHelper.UploadBlob($"{noteId}", request.FileContent, containerClient, true);
+            var bytes = request.FileContent.SelectMany(BitConverter.GetBytes).ToArray();
+            BlobsHelper.UploadBlob($"{noteId}", bytes, containerClient, true);
 
             return Ok(note);
         }
