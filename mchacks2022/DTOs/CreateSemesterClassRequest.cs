@@ -11,7 +11,6 @@ namespace mchacks2022.DTOs
         public string Name { get; set; }
 
         // For semester class
-        [Required]
         public string TeacherName { get; set; }
         public string TeacherEmail { get; set; }
         public string Note { get; set; }
