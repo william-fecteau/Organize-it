@@ -86,7 +86,7 @@ namespace mchacks2022.Controllers
 
         [HttpPost]
         [Route("")]
-        public async Task<IActionResult> CreateSemester([FromRoute] CreateSemesterRequest request)
+        public async Task<IActionResult> CreateSemester([FromBody] CreateSemesterRequest request)
         {
             var userId = User.GetLoggedInUserId();
 
@@ -106,7 +106,7 @@ namespace mchacks2022.Controllers
 
         [HttpPost]
         [Route("{semesterName}")]
-        public async Task<IActionResult> CreateSemesterClass([FromRoute] CreateSemesterClassRequest request, [FromRoute] string semesterName)
+        public async Task<IActionResult> CreateSemesterClass([FromBody] CreateSemesterClassRequest request, [FromRoute] string semesterName)
         {
             var userId = User.GetLoggedInUserId();
 
