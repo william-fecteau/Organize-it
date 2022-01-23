@@ -1,17 +1,13 @@
 <template>
   <page-template title="Login">
-    <div style="width: 20%" class="mt-20 mx-auto">
-
-
-      <h1>Login</h1>
-
+    <div style="width: 50%" class="mt-20 mx-auto">
       <el-form ref="formRef" :model="form" label-width="120px">
         <el-form-item label="Username">
-          <el-input class="mb-3" v-model="username" placeholder="Your username..."></el-input>
+          <el-input class="mb-3 w-40" v-model="username" placeholder="Your username..."></el-input>
         </el-form-item>
 
         <el-form-item label="Password">
-          <el-input v-model="password" placeholder="Your password..."></el-input>
+          <el-input class="w-40" v-model="password" placeholder="Your password..."></el-input>
         </el-form-item>
 
         <div class="text-red-600" v-show="loginError">Invalid username/password combination</div>

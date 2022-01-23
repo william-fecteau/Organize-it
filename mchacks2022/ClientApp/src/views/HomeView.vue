@@ -5,11 +5,10 @@
     <el-button v-if="showDashboardButton" type="primary" @click="$router.push({name: 'Dashboard'})">
       Go to your dashboard <font-awesome-icon class="ml-2" icon="plus-square"/></el-button>
     <el-button v-else type="primary" @click="$router.push({name: 'login'})">Log in to start using the app</el-button>
-    <img src="../assets/logo.png"/>
+    <img src="../assets/logo2.png" class="h-auto w-80 mt-16"/>
   </div>
 
 </template>
-
 <script>
 
 export default {

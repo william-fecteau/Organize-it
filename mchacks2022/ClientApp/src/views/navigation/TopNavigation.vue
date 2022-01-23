@@ -10,7 +10,7 @@
         :default-active="currentIndex"
     >
       <el-menu-item index="/" class="h-full">
-        <img class="self-center w-auto h-14" alt="McHacks logo" src="@/assets/logo.png">
+        <img class="self-center w-auto h-14" alt="McHacks logo" src="@/assets/logo2.png">
       </el-menu-item>
 
       <el-menu-item index="/agenda">Agenda</el-menu-item>
