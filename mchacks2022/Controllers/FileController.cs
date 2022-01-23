@@ -55,9 +55,19 @@ namespace mchacks2022.Controllers
                 FkSemesterClassNoteId = semesterClassNotes.Id
             };
 
-            BlobsHelper.UploadBlob($"{noteId}", request.FileContent, containerClient, true);
+            //BlobsHelper.UploadBlob($"{noteId}", request.FileContent, containerClient, true);
 
             return Ok(note);
         }
+
+        [HttpPost]
+        [Route("upload-test")]
+        public async Task<IActionResult> TestUploadFile([FromBody] UploadNoteRequest request)
+        {
+            return Ok();
+            
+        }
+
+
     }
 }

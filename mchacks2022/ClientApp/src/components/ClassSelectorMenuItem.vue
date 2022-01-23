@@ -1,9 +1,9 @@
 <template>
   <el-sub-menu index="1" :unique-opened="true">
     <template #title>Classes</template>
-    <el-menu-item :route="{name: 'classes'}">GLO-1111</el-menu-item>
-    <el-menu-item :route="{name: 'classes'}">MAT-1919</el-menu-item>
-    <el-menu-item :route="{name: 'classes', params: { classId: 'huhuhuhu' }}">IFT-3001</el-menu-item>
+    <el-menu-item :route="{name: 'classes', params: { classId: 'glo-1111' }}">GLO-1111</el-menu-item>
+    <el-menu-item :route="{name: 'classes', params: { classId: 'mat-1919' }}">MAT-1919</el-menu-item>
+    <el-menu-item :route="{name: 'classes', params: { classId: 'ift-3001' }}">IFT-3001</el-menu-item>
     <el-menu-item class="mt-5" :route="{name: 'new-class'}">New class
       <font-awesome-icon class="ml-2" icon="plus-square"/>
     </el-menu-item>

@@ -2,7 +2,7 @@
 {
     public class UploadNoteRequest
     {
-        public byte[] FileContent { get; set; }
+        public int[] FileContent { get; set; }
         public string Filename { get; set; }
         public string Extension { get; set; }
     }
