@@ -3,6 +3,7 @@ import TestView1 from "@/views/HomeView";
 import Class from "@/views/classes/Class"
 import LoginView from "@/views/LoginView";
 import SeederComponent from "@/components/SeederComponent";
+import NewSemester from "@/views/semesters/NewSemester";
 
 const routes = [
   {
@@ -29,8 +30,13 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: LoginView,
+    component: LoginView
   },
+  {
+    path: "/semesters/new-semester",
+    name: "new-semester",
+    component: NewSemester
+  }
 ];
 
 const router = createRouter({
