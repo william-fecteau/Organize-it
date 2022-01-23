@@ -40,6 +40,7 @@ export default {
         this.$store.commit('initUser', response.data);
       }
       catch (ex) {
+        console.log(ex);
         console.log("failed, get rekt, pain");
         await this.$router.push({name: 'HomeView'})
       }
