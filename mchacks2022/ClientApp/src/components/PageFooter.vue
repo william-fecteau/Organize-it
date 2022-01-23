@@ -3,7 +3,7 @@
     <a href="https://github.com/AggroBane/EduPlan" class="bg-white rounded-full">
       <img src="@/assets/github.png" class="w-16" alt="github logo" />
     </a>
-    <div class="flex flex-col justify-center items-center">
+    <div class="flex flex-col justify-center items-center text-white">
       <h2>This project was made for McHacks 9</h2>
 
       <h1>Maybe the real hackathon was the friends we made along the way...</h1>

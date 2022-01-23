@@ -47,8 +47,19 @@ namespace mchacks2022.Controllers
                     x => x.FkUserId == userId && x.SemesterName == semesterName);
             if (semester == null) return BadRequest("Invalid semester name");
 
-            var allClasses = await _context.SemesterClass
+            var allSemesterClasses = await _context.SemesterClass
                 .Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id).ToListAsync();
+            var allClasses = new List<Class>();
+            
+            foreach (SemesterClass semclass in allSemesterClasses)
+            {
+                var curClass = _context.Classes.FirstOrDefault(x => x.Id == semclass.FkClassId);
+                if (curClass != null)
+                {
+                    allClasses.Add(curClass);
+                }
+                
+            }
 
             return Ok(allClasses);
         }
@@ -135,7 +146,7 @@ namespace mchacks2022.Controllers
             await _context.SemesterClass.AddAsync(semesterClass);
             await _context.SaveChangesAsync();
 
-            return Created("", semesterClass);
+            return Created("", classs);
         }
     }
 }

@@ -1,9 +1,9 @@
 <template>
   <el-sub-menu index="1" :unique-opened="true">
     <template #title>Classes</template>
-    <el-menu-item :route="{name: 'classes'}">GLO-1111</el-menu-item>
-    <el-menu-item :route="{name: 'classes'}">MAT-1919</el-menu-item>
-    <el-menu-item :route="{name: 'classes', params: { classId: 'huhuhuhu' }}">IFT-3001</el-menu-item>
+    <el-menu-item v-for="(value, key) in currentClasses" :key="key" :route="{name: 'classes', params: { classId: `${key}` }}">
+      {{ value.classNum }}
+    </el-menu-item>
     <el-menu-item class="mt-5" :route="{name: 'new-class'}">New class
       <font-awesome-icon class="ml-2" icon="plus-square"/>
     </el-menu-item>
@@ -13,6 +13,11 @@
 <script>
 
 export default {
-  name: 'ClassSelectorMenu'
+  name: 'ClassSelectorMenu',
+  computed: {
+    currentClasses() {
+      return this.$store.state.classes;
+    }
+  }
 }
 </script>

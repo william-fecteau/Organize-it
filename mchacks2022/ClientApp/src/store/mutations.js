@@ -1,3 +1,5 @@
+import {arrayToDictionary} from "@/store/utilities";
+
 export default {
     setReady(state, value) {
         state.ready = value;
@@ -18,6 +20,12 @@ export default {
     },
     setSelectedSemester(state, value) {
       state.selectedSemester = value;
+    },
+    addSemesterClass(state, newClass) {
+        state.classes[newClass.classNum] = newClass;
+    },
+    updateSemesterClasses(state, values) {
+        state.classes = arrayToDictionary(values, 'classNum');
     },
     clearUser(state) {
         state.user = {};

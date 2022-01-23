@@ -1,24 +1,24 @@
 <template>
-  <page-template title="New Semester">
-    <el-form ref="formRef" :model="form" class="flex flex-col justify-between w-full">
-
+  <page-template title="New Class">
+    <div class="text-lg">
+      <h1 v-if="selectedSemester">Current semester selected : <strong>{{ selectedSemester }}</strong></h1>
+      <div v-else class="flex text-red-600 items-center">
+        <font-awesome-icon icon="plus-square" />
+        <h1 class="ml-4">Please select a semester for this class</h1>
+      </div>
+    </div>
+    <el-form ref="formRef" class="flex flex-col justify-between w-full mt-4">
       <div class="flex flex-row flex-nowrap">
-        <div class="text-lg pr-4">Semester name :</div>
-        <el-input class="w-48" v-model="semesterName" placeholder="Semester name..."/>
-
+        <div class="text-lg pr-4">Class name :</div>
+        <el-input class="w-48" v-model="className" placeholder="Ex: History 3"/>
       </div>
 
       <el-form-item class="flex flex-row my-8">
-        <p class="text-lg pr-4">Semester weeks :</p>
-        <el-input-number v-model="semesterWeeks" placeholder="Semester weeks..."/>
+        <p class="text-lg pr-4">Class number :</p>
+        <el-input class="w-48" v-model="classNum" placeholder="Ex: HST-1003"/>
       </el-form-item>
 
-      <el-form-item class="flex flex-row">
-        <p class="text-lg pr-4">Semester start date :</p>
-        <el-date-picker v-model="semesterStart" type="date" placeholder="Semester start date"/>
-      </el-form-item>
-
-      <div class="text-red-600" v-if="createError">Invalid semester name</div>
+      <div class="text-red-600" v-if="createError">A field is invalid, please check</div>
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Create</el-button>
@@ -37,36 +37,40 @@ export default {
   components: {PageTemplate},
   data() {
     return {
-      semesterName: '',
-      semesterWeeks: 0,
-      semesterStart: new Date(),
+      classNum: null,
+      className: null,
       createError: false
     }
   },
   mounted() {
     this.resetFields();
   },
+  computed: {
+    selectedSemester() {
+      return this.$store.state.selectedSemester;
+    }
+  },
   methods: {
     resetFields() {
-      this.semesterName = '';
-      this.semesterWeeks = 0;
-      this.semesterStart = new Date();
+      this.classNum = null;
+      this.className = null;
     },
     async onSubmit() {
       try {
-        let res = await axios.post('/semester', {
-          SemesterName: this.semesterName,
-          NbWeeks: this.semesterWeeks
+        let res = await axios.post(`/semester/${this.selectedSemester}`, {
+          ClassNum: this.classNum,
+          Name: this.className
         });
 
         if (res) {
           ElNotification({
             title: 'Create successful',
-            message: `Semester ${this.semesterName} was created successfully`,
+            message: `Class ${this.className} (${this.classNum}) was created successfully`,
             duration: 5000
           });
 
           this.resetFields();
+          this.$store.commit('addSemesterClass', res.data);
         } else {
           this.createError = true;
         }

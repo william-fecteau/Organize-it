@@ -60,6 +60,7 @@
 
 <script>
 import ClassSelectorMenuItem from "@/components/ClassSelectorMenuItem";
+import {get} from "axios";
 
 export default {
   name: "TopNavigation",
@@ -83,7 +84,25 @@ export default {
       localStorage.removeItem("jwt");
       this.$store.commit('clearUser');
       this.$router.push({name: 'HomeView'});
+    },
+    async updateSemesterClasses() {
+      try {
+        const response = await get(`/semester/${this.selectedSemester}`);
+        this.$store.commit('updateSemesterClasses', response.data);
+
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  },
+  watch: {
+    selectedSemester: function (newSemester, oldSemester) {
+      if (newSemester !== oldSemester) {
+        console.log('watcher watches');
+        this.updateSemesterClasses();
+      }
     }
   }
+
 }
 </script>
