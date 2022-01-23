@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using mchacks2022.Data;
 using mchacks2022.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace mchacks2022.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class DeadlineController : ControllerBase
     {

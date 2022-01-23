@@ -65,6 +65,25 @@ namespace mchacks2022.Controllers
         }
 
         [HttpGet]
+        [Route("{semesterName}/{classId}")]
+        public async Task<IActionResult> GetSemesterClass([FromRoute] string semesterName, [FromRoute] string classNum)
+        {
+            var userId = User.GetLoggedInUserId();
+
+            var semester =
+                await _context.Semesters.FirstOrDefaultAsync(
+                    x => x.FkUserId == userId && x.SemesterName == semesterName);
+            if (semester == null) return BadRequest("Invalid semester name");
+
+            var classs = await _context.Classes.FirstOrDefaultAsync(x => x.ClassNum == classNum);
+
+            var semesterClass = await _context.SemesterClass
+                .Where(x => x.FkUserId == userId && x.FkSemesterId == semester.Id && x.FkClassId == classs.Id).ToListAsync();
+
+            return Ok(semesterClass);
+        }
+
+        [HttpGet]
         [Route("{semesterName}/schedules")]
         public async Task<IActionResult> GetAllSemesterClassSchedulesOfUser([FromRoute] string semesterName)
         {
