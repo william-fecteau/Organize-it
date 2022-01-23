@@ -110,7 +110,7 @@ namespace mchacks2022.Controllers
         {
             var userId = User.GetLoggedInUserId();
 
-            var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.SemesterName == semesterName);
+            var semester = await _context.Semesters.FirstOrDefaultAsync(x => x.SemesterName == semesterName && x.FkUserId == userId);
             if (semester == null) return BadRequest("Invalid semester or class");
 
             var classs = new Class()
@@ -125,6 +125,7 @@ namespace mchacks2022.Controllers
             {
                 FkClassId = classs.Id,
                 FkSemesterId = semester.Id,
+                FkUserId = userId,
                 Note = request.Note,
                 TeacherEmail = request.TeacherEmail,
                 TeacherName = request.TeacherName
