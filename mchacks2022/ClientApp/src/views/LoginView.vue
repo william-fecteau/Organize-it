@@ -1,7 +1,7 @@
 <template>
   <page-template title="Login">
     <div style="width: 50%" class="mt-20 mx-auto">
-      <el-form ref="formRef" :model="form" label-width="120px">
+      <el-form ref="formRef" label-width="120px">
         <el-form-item label="Username">
           <el-input class="mb-3 w-40" v-model="username" placeholder="Your username..."></el-input>
         </el-form-item>
@@ -38,22 +38,26 @@ export default {
   },
   methods: {
     async onSubmit() {
+      this.loginError = false;
+
       try {
-        const response = await axios.post('/account/login', {
+        const loginResponse = await axios.post('/account/login', {
           username: this.username,
           password: this.password
         });
 
-        this.loginError = false;
-        localStorage.setItem("jwt", response.data.jwt);
-        this.$store.commit('setUserFromDB', response.data.user);
-        await this.$router.push({name: 'HomeView'});
+        if (loginResponse.status === 200) {
+          localStorage.setItem("jwt", loginResponse.data.jwt);
+          axios.defaults.headers.common["Authorization"] =
+              "Bearer " + loginResponse.data.jwt;
 
-        localStorage.setItem("jwt", response.data.jwt)
+          const initResponse = await axios.get("/init");
 
-        axios.defaults.headers.common["Authorization"] =
-            "Bearer " + response.data.jwt;
-
+          this.$store.commit('initUser', initResponse.data);
+          await this.$router.push({name: 'HomeView'});
+        } else {
+          this.loginError = true;
+        }
       } catch (ex) {
         this.loginError = true;
       }

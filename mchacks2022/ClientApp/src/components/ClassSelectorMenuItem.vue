@@ -13,21 +13,6 @@
 <script>
 
 export default {
-  name: 'ClassSelectorMenu',
-  data() {
-    return {
-      activeName: "first"
-    }
-  },
-  async mounted() {
-    const res = 'TODO';
-
-    console.log(res);
-  },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event)
-    },
-  }
+  name: 'ClassSelectorMenu'
 }
 </script>

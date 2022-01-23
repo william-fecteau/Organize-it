@@ -4,6 +4,7 @@ import Class from "@/views/classes/Class"
 import LoginView from "@/views/LoginView";
 import SeederComponent from "@/components/SeederComponent";
 import NewSemester from "@/views/semesters/NewSemester";
+import NewClass from "@/views/classes/NewClass";
 
 const routes = [
   {
@@ -25,7 +26,7 @@ const routes = [
   {
     path: "/classes/new-class",
     name: "new-class",
-    component: Class //TODO make component for class create
+    component: NewClass //TODO make component for class create
   },
   {
     path: "/login",
