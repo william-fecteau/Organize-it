@@ -1,9 +1,21 @@
 <template>
   <page-template title="New Semester">
-    <el-form ref="formRef" :model="form" label-width="120px">
-      <el-form-item label="Semester name">
-        <el-input class="mb-3" v-model="semesterName" placeholder="Semester name..."/>
+    <el-form ref="formRef" :model="form" class="flex flex-col justify-between w-full">
+
+      <div class="flex flex-row flex-nowrap">
+        <div class="text-lg pr-4">Semester name :</div>
+        <el-input class="w-48" v-model="semesterName" placeholder="Semester name..."/>
+
+      </div>
+
+      <el-form-item class="flex flex-row my-8">
+        <p class="text-lg pr-4">Semester weeks :</p>
         <el-input-number v-model="semesterWeeks" placeholder="Semester weeks..."/>
+      </el-form-item>
+
+      <el-form-item class="flex flex-row">
+        <p class="text-lg pr-4">Semester start date :</p>
+        <el-date-picker v-model="semesterStart" type="date" placeholder="Semester start date"/>
       </el-form-item>
 
       <div class="text-red-600" v-if="createError">Invalid semester name</div>
@@ -21,28 +33,40 @@ import PageTemplate from "@/components/PageTemplate";
 import {ElNotification} from "element-plus";
 
 export default {
-  name: "LoginView",
+  name: "NewSemester",
   components: {PageTemplate},
   data() {
     return {
       semesterName: '',
       semesterWeeks: 0,
+      semesterStart: new Date(),
       createError: false
     }
   },
+  mounted() {
+    this.resetFields();
+  },
   methods: {
+    resetFields() {
+      this.semesterName = '';
+      this.semesterWeeks = 0;
+      this.semesterStart = new Date();
+    },
     async onSubmit() {
       try {
         let res = await axios.post('/semester', {
-          username: this.semesterName
+          SemesterName: this.semesterName,
+          NbWeeks: this.semesterWeeks
         });
 
         if (res) {
           ElNotification({
             title: 'Create successful',
             message: `Semester ${this.semesterName} was created successfully`,
-            duration: 5
+            duration: 5000
           });
+
+          this.resetFields();
         } else {
           this.createError = true;
         }
