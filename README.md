@@ -1,4 +1,6 @@
-# McHacks2022
+# Organize It
+This project was made in 48h during McHacks 2022 https://www.mchacks.ca/
+
 ## Inspiration
 Planning a school semester can be a hard task. You need to make your agenda, make your deadlines reminder, make your exam schedule and find a place to put all of your class notes. I have used a lot of tools for those task like Google Agenda, Trello, OneNote, etc. If only there could only be one place where I could do all these tasks...
 
